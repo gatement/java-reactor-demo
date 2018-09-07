@@ -19,8 +19,14 @@ public class AppTest {
 	            .expectNext(1, 2, 3, 4, 5, 6)
 	            .expectComplete()
 	            .verify();
+	    
 	    StepVerifier.create(generateMonoWithError())
 	            .expectErrorMessage("some error")
 	            .verify();
+
+		StepVerifier.create(Flux.range(1, 6)
+				.map(i -> i * i)) 
+				.expectNext(1, 4, 9, 16, 25, 36)
+				.verifyComplete();
 	}
 }
